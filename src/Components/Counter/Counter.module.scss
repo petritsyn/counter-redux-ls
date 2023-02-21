@@ -1,0 +1,35 @@
+.counter {
+  border: 2px solid #83dcf7;
+  width: 400px;
+  height: 300px;
+  margin: 20px;
+  border-radius: 20px;
+  color: white;
+  .valueArea {
+    border: 2px solid #83dcf7;
+    width: 90%;
+    height: 50%;
+    margin: 5%;
+    border-radius: 15px;
+    .content {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .value {
+        font-size: 5em;
+        font-weight: bold;
+      }
+    }
+  }
+  .buttonsArea {
+    border: 2px solid #83dcf7;
+    width: 90%;
+    height: 30%;
+    margin: 5%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
