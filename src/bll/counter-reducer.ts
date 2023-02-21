@@ -5,12 +5,12 @@ const initialState = {
     counterValue: 0
 }
 
-export const counterReducer = (state: initialStateType = initialState, action: ActionsTypes) => {
+export const counterReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
     switch (action.type) {
         case "INCREMENT-COUNTER":
             return {
                 ...state,
-                counter: state.counterValue + 1
+                counterValue: state.counterValue + 1
             }
 
         default:

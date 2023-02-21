@@ -1,13 +1,19 @@
 import React from 'react';
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../bll/store";
+import {useAppDispatch, useAppSelector} from "../utils/hooks";
+import {incrementCounterAC} from "../bll/counter-reducer";
 
 export const Counter = () => {
-    const value = useSelector<AppRootStateType, number>(state => state.counter.counterValue)
+    const value = useAppSelector(state => state.counter.counterValue)
+    const dispatch = useAppDispatch()
+
+    const onClickHandler = () => {
+        dispatch(incrementCounterAC())
+    }
 
     return (
         <div>
             {value}
+            <div><button onClick={onClickHandler}>Inc</button></div>
         </div>
     );
 };
