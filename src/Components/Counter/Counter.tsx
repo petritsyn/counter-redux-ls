@@ -16,13 +16,13 @@ export const Counter: FC = () => {
     }
 
     return (
-        <div className={s.counter}>
-            <div className={s.valueArea}>
-                <div className={s.content}>
+        <div className={'counterItem'}>
+            <div className={'valueArea'}>
+                <div className={'content'}>
                     <span className={s.value}>{value}</span>
                 </div>
             </div>
-            <div className={s.buttonsArea}>
+            <div className={'buttonsArea'}>
                 <Button name={'inc'} callback={onClickIncHandler}/>
                 <Button name={'reset'} callback={onClickResetHandler}/>
             </div>

@@ -1,7 +1,23 @@
-.settings {
-  border: 2px solid #83dcf7;
-  width: 400px;
-  height: 300px;
-  margin: 20px;
-  border-radius: 20px;
+.settingsArea {
+  width: 100%;
+  .inputSettingsItem {
+    margin: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    span {
+      color: #83dcf7;
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+
+    input {
+      width: 120px;
+      height: 40px;
+      border-radius: 10px;
+      text-align: center;
+    }
+  }
 }
