@@ -7,6 +7,8 @@ import {Button} from "../Button/Button";
 export const Counter: FC = () => {
     const value = useAppSelector(state => state.counter.counterValue)
     const dispatch = useAppDispatch()
+    const disabledIncButton = useAppSelector(state => state.counter.isIncButtonDisable)
+    const disabledResetButton = useAppSelector(state => state.counter.isResetButtonDisable)
 
     const onClickIncHandler = () => {
         dispatch(incrementCounterAC())
@@ -23,8 +25,8 @@ export const Counter: FC = () => {
                 </div>
             </div>
             <div className={'buttonsArea'}>
-                <Button name={'inc'} callback={onClickIncHandler}/>
-                <Button name={'reset'} callback={onClickResetHandler}/>
+                <Button name={'inc'} callback={onClickIncHandler} disabled={disabledIncButton}/>
+                <Button name={'reset'} callback={onClickResetHandler} disabled={disabledResetButton}/>
             </div>
         </div>
     );

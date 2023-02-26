@@ -2,19 +2,26 @@ import React, { FC } from 'react';
 import s from './Settings.module.scss'
 import {Button} from "../Button/Button";
 import {Input} from "../Input/Input";
-import {useAppDispatch} from "../../utils/hooks";
-import {maxValueChangeAC} from "../../bll/counter-reducer";
+import {useAppDispatch, useAppSelector} from "../../utils/hooks";
+import {maxValueChangeAC, startValueChangeAC} from "../../bll/counter-reducer";
 
 export const Settings: FC = () => {
 
     const dispatch = useAppDispatch()
+    const maxValue = useAppSelector(state => state.counter.maxValue)
+    const startValue = useAppSelector(state => state.counter.startValue)
+    const disabledSetButton = useAppSelector(state => state.counter.isSetButtonDisable)
 
     const onClickSetHandler = () => {
-        console.log('set')
+        console.log(disabledSetButton)
     }
 
-    const onChangeInputValue = (value: number) => {
+    const onChangeInputMaxValue = (value: number) => {
         dispatch(maxValueChangeAC(value))
+    }
+
+    const onChangeInputStartValue = (value: number) => {
+        dispatch(startValueChangeAC(value))
     }
 
     return (
@@ -24,17 +31,17 @@ export const Settings: FC = () => {
                     <div className={s.settingsArea}>
                         <div className={s.inputSettingsItem}>
                             <span>max value:</span>
-                            <Input value={0} onChange={onChangeInputValue}/>
+                            <Input value={maxValue} onChange={onChangeInputMaxValue}/>
                         </div>
                         <div className={s.inputSettingsItem}>
                             <span>start value:</span>
-                            <Input value={0} onChange={onChangeInputValue}/>
+                            <Input value={startValue} onChange={onChangeInputStartValue}/>
                         </div>
                     </div>
                 </div>
             </div>
             <div className={'buttonsArea'}>
-                <Button name={'set'} callback={onClickSetHandler}/>
+                <Button name={'set'} callback={onClickSetHandler} disabled={disabledSetButton}/>
             </div>
         </div>
     );
