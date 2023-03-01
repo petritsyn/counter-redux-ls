@@ -1,9 +1,14 @@
-import React, { FC } from 'react';
+import React, {FC, useEffect} from 'react';
 import s from './Settings.module.scss'
 import {Button} from "../Button/Button";
 import {Input} from "../Input/Input";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks";
-import {maxValueChangeAC, startValueChangeAC} from "../../bll/counter-reducer";
+import {
+    maxValueChangeAC,
+    showIncorrectValueMessageAC,
+    startValueChangeAC,
+    toggleSetButtonDisableAC
+} from "../../bll/counter-reducer";
 
 export const Settings: FC = () => {
 
@@ -23,6 +28,16 @@ export const Settings: FC = () => {
     const onChangeInputStartValue = (value: number) => {
         dispatch(startValueChangeAC(value))
     }
+
+    useEffect(() => {
+        if (maxValue < startValue || maxValue === startValue) {
+            dispatch(toggleSetButtonDisableAC(true))
+            dispatch(showIncorrectValueMessageAC(true))
+        } else {
+            dispatch(toggleSetButtonDisableAC(false))
+            dispatch(showIncorrectValueMessageAC(false))
+        }
+    }, [maxValue, startValue])
 
     return (
         <div className={'counterItem'}>
