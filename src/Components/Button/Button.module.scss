@@ -6,3 +6,11 @@
   font-weight: bold;
   font-size: 2em;
 }
+
+.button:active {
+  opacity: 0.5;
+}
+
+.button:disabled {
+  opacity: 0.8;
+}

@@ -6,6 +6,8 @@ export type ActionsTypes = ReturnType<typeof incrementCounterAC>
     | ReturnType<typeof toggleIncButtonDisableAC>
     | ReturnType<typeof toggleSetButtonDisableAC>
     | ReturnType<typeof showIncorrectValueMessageAC>
+    | ReturnType<typeof showSetValueMessageAC>
+    | ReturnType<typeof setButtonPressAC>
 
 const initialState = {
     counterValue: 0,
@@ -13,9 +15,9 @@ const initialState = {
     isMessageShow: false,
     maxValue: 0,
     startValue: 0,
-    isSetButtonDisable: false,
+    isSetButtonDisable: true,
     isIncButtonDisable: false,
-    isResetButtonDisable: false
+    isResetButtonDisable: true
 }
 
 export const counterReducer = (state: initialStateType = initialState, action: ActionsTypes): initialStateType => {
@@ -23,12 +25,14 @@ export const counterReducer = (state: initialStateType = initialState, action: A
         case "INCREMENT-COUNTER-VALUE":
             return {
                 ...state,
-                counterValue: state.counterValue + 1
+                counterValue: state.counterValue + 1,
+                isResetButtonDisable: false
             }
         case "RESET-COUNTER-VALUE":
             return {
                 ...state,
-                counterValue: 0
+                counterValue: state.startValue,
+                isResetButtonDisable: true
             }
 
         case "MAX-VALUE-CHANGE":
@@ -61,6 +65,22 @@ export const counterReducer = (state: initialStateType = initialState, action: A
                 isIncorrectValueShow: action.isShow
             }
 
+        case "SHOW-SET-VALUE-MESSAGE":
+            return {
+                ...state,
+                isMessageShow: action.isShow
+            }
+
+        case "SET-BUTTON-PRESS":
+            return {
+                ...state,
+                isSetButtonDisable: true,
+                isIncButtonDisable: false,
+                isResetButtonDisable: false,
+                isMessageShow: false,
+                counterValue: state.startValue
+            }
+
         default:
             return state
     }
@@ -82,3 +102,8 @@ export const showIncorrectValueMessageAC = (isShow: boolean) => ({
     type: 'SHOW-INCORRECT-VALUE-MESSAGE',
     isShow
 } as const)
+export const showSetValueMessageAC = (isShow: boolean) => ({
+    type: 'SHOW-SET-VALUE-MESSAGE',
+    isShow
+} as const)
+export const setButtonPressAC = () => ({type: 'SET-BUTTON-PRESS'} as const)

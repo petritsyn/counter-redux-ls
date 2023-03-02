@@ -4,9 +4,9 @@ import {Button} from "../Button/Button";
 import {Input} from "../Input/Input";
 import {useAppDispatch, useAppSelector} from "../../utils/hooks";
 import {
-    maxValueChangeAC,
-    showIncorrectValueMessageAC,
-    startValueChangeAC,
+    maxValueChangeAC, setButtonPressAC,
+    showIncorrectValueMessageAC, showSetValueMessageAC,
+    startValueChangeAC, toggleIncButtonDisableAC,
     toggleSetButtonDisableAC
 } from "../../bll/counter-reducer";
 
@@ -18,19 +18,23 @@ export const Settings: FC = () => {
     const disabledSetButton = useAppSelector(state => state.counter.isSetButtonDisable)
 
     const onClickSetHandler = () => {
-        console.log(disabledSetButton)
+        dispatch(setButtonPressAC())
     }
 
     const onChangeInputMaxValue = (value: number) => {
         dispatch(maxValueChangeAC(value))
+        dispatch(showSetValueMessageAC(true))
+        dispatch(toggleIncButtonDisableAC(true))
     }
 
     const onChangeInputStartValue = (value: number) => {
         dispatch(startValueChangeAC(value))
+        dispatch(showSetValueMessageAC(true))
+        dispatch(toggleIncButtonDisableAC(true))
     }
 
     useEffect(() => {
-        if (maxValue < startValue || maxValue === startValue) {
+        if (maxValue < startValue || maxValue === startValue || maxValue < 0 || startValue < 0) {
             dispatch(toggleSetButtonDisableAC(true))
             dispatch(showIncorrectValueMessageAC(true))
         } else {
@@ -46,11 +50,13 @@ export const Settings: FC = () => {
                     <div className={s.settingsArea}>
                         <div className={s.inputSettingsItem}>
                             <span>max value:</span>
-                            <Input value={maxValue} onChange={onChangeInputMaxValue}/>
+                            <Input value={maxValue} onChange={onChangeInputMaxValue}
+                                   error={maxValue < 0 || startValue === maxValue || maxValue < startValue}/>
                         </div>
                         <div className={s.inputSettingsItem}>
                             <span>start value:</span>
-                            <Input value={startValue} onChange={onChangeInputStartValue}/>
+                            <Input value={startValue} onChange={onChangeInputStartValue}
+                                   error={startValue < 0 || startValue === maxValue || maxValue < startValue}/>
                         </div>
                     </div>
                 </div>
